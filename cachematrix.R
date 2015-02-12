@@ -21,15 +21,17 @@
 makeCacheMatrix <- function(x = matrix()) {
   
         inverse_exists <- NULL
+	      
         set <- function(y) {                 #function to change the matrix
-        x <<- y                              #in the parent.frame (<<- operator)  
-        inverse_exits <<- NULL
-  }
-  get <- function() x                                       #function to retrieve the matrix
-  setinverse <- function(solve) inverse_exists <<- solve    #function to compute the inverse
-  getinverse <- function() inverse_exists                   #function to retrieve the inverse
-  list(set=set, get=get,setinverse=setinverse,
-       getinverse=getinverse)
+	              x <<- y                      #in the parent.frame (<<- operator)  
+	              inverse_exits <<- NULL
+        }
+  
+	      get <- function() x                                      #function to retrieve the matrix
+        setinverse <- function(solve) inverse_exists <<- solve   #function to compute the inverse
+        getinverse <- function() inverse_exists                 #function to retrieve the inverse
+        list(set=set, get=get,setinverse=setinverse,
+             getinverse=getinverse)
 }
 
 
@@ -38,16 +40,15 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
   
-  inverse_exists <- x$getinverse()                    #retrieve cached inverse
-  if(!is.null(inverse_exists)) {                      #check if cached inverse exists
-          message("loadindg cached inverse")
-          return(inverse_exists)                      #return cached inverse
-  }
-  temp <- x$get()                                     #no cached inverse exists, retrieve matrix
-  inverse_exists <- solve(temp, ...)                  #calculate inverse
-  x$setinverse(inverse_exists)                        #cache inverse,
-  return(inverse_exists)                              #return it.
+        inverse_exists <- x$getinverse()             #retrieve cached inverse
+        if(!is.null(inverse_exists)) {               #check if cached inverse exists
+                message("\n\nloadindg cached inverse:\n\n")
+                return(inverse_exists)               #return cached inverse
+        }
+        
+        temp <- x$get()                              #no cached inverse exists, retrieve matrix
+        inverse_exists <- solve(temp, ...)           #calculate inverse
+        x$setinverse(inverse_exists)                 #cache inverse,
+        return(inverse_exists)                       #return it.
 }
-
-AaAAAAAAAAAAAAAAAAAA
 
