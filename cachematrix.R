@@ -4,12 +4,15 @@
 ## enclosed in the environment of the original function call to "makeCacheMatrix". 
 ## Therefore all of them reference the same matrix with wich "makeCacheMatrix"
 ## was originaly loaded. This simulates a mutable object.
-## The 4 functions are ways to set the matrix to a new value, to retrieve the matrix, 
-## to compute an inverse and retrieve it. The object keeps track of any change to the matrix and stores
-## a cached value for its inverse, if it has been computed, for as long as the underlying matrix is not 
-## changed. 
-## The "cacheSolve" functions checks if an inverse for a "makeCacheMatrix" matrix is in the cache and
-## returns it. Otherwise it will compute and then cache it.
+## The 4 functions are ways to 1) set the matrix to a new value, 
+## 2) to retrieve the matrix, 3) to compute an inverse and 4) retrieve it. 
+## The object keeps track of any change to the matrix and stores a cached value 
+## for its inverse, if it has been computed, for as long as the underlying matrix is not changed. 
+## The "cacheSolve" functions checks if an inverse for a "makeCacheMatrix" matrix 
+## is in the cache and returns it. Otherwise it will compute and then cache it.
+
+## The outline of the functions is analogous two the cacheMean functions given in the assignment.
+## further resources: "http://adv-r.had.co.nz/Functional-programming.html#closures"
 
 
 
@@ -18,20 +21,20 @@
 makeCacheMatrix <- function(x = matrix()) {
   
         inverse_exists <- NULL
-        set <- function(y) {                               #function to change the matrix
-        x <<- y                                            #in the parent.frame (<<- operator)  
+        set <- function(y) {                 #function to change the matrix
+        x <<- y                              #in the parent.frame (<<- operator)  
         inverse_exits <<- NULL
   }
-  get <- function() x                                           #function to retrieve the matrix
-  setinverse <- function(solve) inverse_exists <<- solve        #function to compute the inverse
-  getinverse <- function() inverse_exists                       #function to retrieve the inverse
+  get <- function() x                                       #function to retrieve the matrix
+  setinverse <- function(solve) inverse_exists <<- solve    #function to compute the inverse
+  getinverse <- function() inverse_exists                   #function to retrieve the inverse
   list(set=set, get=get,setinverse=setinverse,
        getinverse=getinverse)
 }
 
 
-## This function checks if an inverse of the matrix attached to the list already exists and returns it.
-## Otherwise it computesm caches and returns the newly computed inverse.
+## This function checks if an inverse of the matrix attached to the list already exists 
+## and returns it. Otherwise it computes it, caches it and returns the newly computed inverse.
 
 cacheSolve <- function(x, ...) {
   
@@ -46,4 +49,5 @@ cacheSolve <- function(x, ...) {
   return(inverse_exists)                              #return it.
 }
 
+AaAAAAAAAAAAAAAAAAAA
 
